@@ -1,0 +1,74 @@
+/* Custom Variable Definitions */
+:root {
+    --background: #030712;
+    --primary: #3b82f6;
+    --accent: #6366f1;
+}
+
+body {
+    background-color: var(--background);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Background Textures */
+.bg-premium-gradient {
+    background: radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.15) 0%, rgba(3, 7, 18, 0) 50%);
+}
+
+.bg-grid {
+    background-size: 40px 40px;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                      linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+}
+
+/* Typography */
+.gradient-text {
+    background: linear-gradient(to right, #60a5fa, #818cf8, #c084fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.logo-text {
+    font-size: 1.25rem;
+    font-weight: 700;
+    background: linear-gradient(to right, #fff, #94a3b8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* UI Components */
+.glass-input {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.btn-gradient {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
+}
+
+.btn-gradient:hover:not(:disabled) {
+    box-shadow: 0 0 25px rgba(99, 102, 241, 0.4);
+    transform: translateY(-1px);
+}
+
+.btn-gradient:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.glow-effect {
+    position: absolute;
+    inset: -4px;
+    background: linear-gradient(to right, #2563eb, #7c3aed);
+    border-radius: 1.25rem;
+    filter: blur(15px);
+    opacity: 0.1;
+    transition: opacity 0.3s;
+}
+
+.group:hover .glow-effect {
+    opacity: 0.25;
+}
