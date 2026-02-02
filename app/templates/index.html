@@ -1,197 +1,160 @@
 <!DOCTYPE html>
 <html class="dark" lang="en">
-
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Linkwise - Clarity from noise</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <!-- Material Symbols -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-        rel="stylesheet" />
-    <!-- Google Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Noto+Sans:wght@400;500;700&display=swap"
-        rel="stylesheet" />
-    <!-- Theme Configuration -->
-    <script id="tailwind-config">
+    <title>Linkwise - AI Research Assistant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
-                    colors: {
-                        "primary": "#13b6ec",
-                        "background-light": "#f6f8f8",
-                        "background-dark": "#101d22",
-                        "charcoal": "#1A1A1A",
-                        "amber-glow": "#FFBF00",
-                    },
                     fontFamily: {
-                        "display": ["Inter", "sans-serif"],
-                        "body": ["Inter", "sans-serif"]
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
                     },
-                    borderRadius: {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
+                    colors: {
+                        background: "#030712", // Very dark navy/black
+                        surface: "#111827",
+                        primary: "#3b82f6",
+                        accent: "#6366f1", // Indigo
                     },
+                    backgroundImage: {
+                        'premium-gradient': 'radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.15) 0%, rgba(3, 7, 18, 0) 50%)',
+                    }
                 },
             },
         }
     </script>
     <style>
-        /* Custom Glassmorphism Utilities */
-        .glass-panel {
-            background: rgba(26, 26, 26, 0.4);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+        /* Premium Blur & Glass Effects */
+        .glass-input {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Subtle Grid Background */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
         }
 
-        .amber-btn-glow {
-            box-shadow: 0 0 20px rgba(255, 191, 0, 0.15);
+        /* Animated Button Gradient */
+        .btn-gradient {
+            background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
             transition: all 0.3s ease;
         }
-
-        .amber-btn-glow:hover {
-            box-shadow: 0 0 30px rgba(255, 191, 0, 0.3);
+        .btn-gradient:hover {
+            box-shadow: 0 0 25px rgba(99, 102, 241, 0.4);
+            transform: translateY(-1px);
         }
     </style>
 </head>
 
-<body
-    class="bg-background-light dark:bg-background-dark font-display antialiased min-h-screen flex flex-col overflow-x-hidden text-slate-900 dark:text-white">
-    <!-- Top Navbar -->
-    <nav class="w-full z-50 border-b border-transparent dark:border-white/5 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <!-- Logo -->
-                <div class="flex items-center gap-3">
-                    <div class="size-8 text-primary flex items-center justify-center">
-                        <span class="material-symbols-outlined !text-[32px]">dataset</span>
-                    </div>
-                    <span class="text-lg font-semibold tracking-tight text-slate-900 dark:text-white">LinkWise</span>
+<body class="bg-background text-white font-sans min-h-screen flex flex-col overflow-x-hidden selection:bg-primary/30">
+    
+    <div class="fixed inset-0 bg-premium-gradient pointer-events-none"></div>
+    <div class="fixed inset-0 bg-grid pointer-events-none z-0"></div>
+
+    <nav class="w-full z-50 border-b border-white/5 backdrop-blur-sm fixed top-0">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="bg-gradient-to-br from-blue-500 to-indigo-500 rounded-lg p-1.5 shadow-lg shadow-blue-500/20">
+                    <i class="ph-bold ph-read-cv-logo text-white text-xl"></i>
                 </div>
-                <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center gap-8">
-                    <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors"
-                        href="#">Pricing</a>
-                    <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors"
-                        href="#">Login</a>
-                    <button
-                        class="bg-slate-900 dark:bg-white text-white dark:text-background-dark px-4 py-2 rounded-lg text-sm font-bold hover:opacity-90 transition-opacity">
-                        Get Started
-                    </button>
-                </div>
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden flex items-center">
-                    <button class="text-slate-600 dark:text-slate-300">
-                        <span class="material-symbols-outlined">menu</span>
-                    </button>
-                </div>
+                <span class="text-xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
+                    LinkWise
+                </span>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#" class="text-sm font-medium text-slate-400 hover:text-white transition-colors">Pricing</a>
+                <a href="#" class="text-sm font-medium text-slate-400 hover:text-white transition-colors">Login</a>
+                <button class="bg-white/5 hover:bg-white/10 border border-white/10 text-white px-5 py-2 rounded-full text-sm font-semibold transition-all">
+                    Get Started
+                </button>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <main class="flex-grow flex flex-col items-center justify-center px-4 relative">
-        <!-- Abstract Background Gradient/Glow -->
-        <div
-            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] pointer-events-none">
-        </div>
-
-        <div class="w-full max-w-4xl mx-auto text-center z-10 flex flex-col items-center justify-center py-20 lg:py-32">
-            <!-- Headlines -->
-            <div class="space-y-6 mb-12">
-                <h1 class="text-5xl md:text-7xl font-black tracking-tight text-slate-900 dark:text-white leading-[1.1]">
-                    Clarity from noise.
-                </h1>
-                <p class="text-lg md:text-xl text-slate-500 dark:text-slate-400 font-light max-w-2xl mx-auto">
-                    Extract insights from any URL with precision.
-                </p>
+    <main class="relative z-10 flex-grow flex flex-col items-center justify-center px-4 pt-32 pb-20">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-6">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-4">
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                </span>
+                Powered by Ollama LLM
             </div>
-
-            <!-- Input Component -->
-            <div class="w-full max-w-2xl mx-auto">
-                <form class="relative group" onsubmit="event.preventDefault();">
-                    <div
-                        class="glass-panel rounded-xl p-2 flex items-center gap-2 transition-all duration-300 focus-within:ring-2 focus-within:ring-primary/50 focus-within:border-primary/50">
-                        <!-- Search Icon -->
-                        <div class="pl-4 pr-2 text-slate-400 dark:text-slate-500">
-                            <span class="material-symbols-outlined">link</span>
-                        </div>
-                        <!-- Input Field -->
-                        <input
-                            class="w-full bg-transparent border-none outline-none focus:ring-0 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 text-base md:text-lg font-light py-3"
-                            placeholder="Paste article or paper URL here..." required type="url" />
-                        <!-- Submit Button -->
-                        <button
-                            class="amber-btn-glow bg-amber-500 hover:bg-amber-400 text-slate-900 dark:text-background-dark px-6 md:px-8 py-3 rounded-lg font-bold text-sm md:text-base flex items-center gap-2 whitespace-nowrap transition-colors"
-                            type="submit">
-                            <span>Summarize</span>
-                            <span class="material-symbols-outlined text-sm">auto_awesome</span>
-                        </button>
-                    </div>
-                </form>
-
-                <!-- Helper text -->
-                <div class="mt-4 flex items-center justify-center gap-4 text-xs text-slate-500 dark:text-slate-500">
-                    <span class="flex items-center gap-1">
-                        <span class="material-symbols-outlined text-[14px]">check_circle</span>
-                        Instant Analysis
-                    </span>
-                    <span class="flex items-center gap-1">
-                        <span class="material-symbols-outlined text-[14px]">lock</span>
-                        Private &amp; Secure
-                    </span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Trust Indicators -->
-        <div class="w-full max-w-5xl mx-auto px-6 py-10 border-t border-slate-200 dark:border-white/5 mt-auto mb-10">
-            <p
-                class="text-center text-sm font-medium text-slate-400 dark:text-slate-600 mb-8 uppercase tracking-widest">
-                Trusted by researchers at
+            
+            <h1 class="text-5xl md:text-7xl font-bold tracking-tight text-white leading-[1.1]">
+                Turn noise into <br />
+                <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400">clarity.</span>
+            </h1>
+            
+            <p class="text-lg text-slate-400 font-light max-w-xl mx-auto leading-relaxed">
+                The research assistant that reads for you. Extract precision insights from any URL in seconds, not hours.
             </p>
-            <div
-                class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
-                <!-- Logos (Simulated with Text/Icons for this demo) -->
-                <div class="flex items-center gap-2 group cursor-default">
-                    <div class="size-8 rounded-full bg-slate-200 dark:bg-slate-700"></div>
-                    <span class="font-bold text-slate-800 dark:text-slate-300">Harvard</span>
+        </div>
+
+        <div class="w-full max-w-2xl mx-auto relative group">
+            <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+            
+            <form class="relative flex items-center p-2 rounded-2xl glass-input transition-all duration-300 focus-within:ring-1 focus-within:ring-blue-500/50">
+                <div class="pl-4 pr-3 text-slate-500">
+                    <i class="ph ph-link text-xl"></i>
                 </div>
-                <div class="flex items-center gap-2 group cursor-default">
-                    <div class="size-8 rounded-full bg-slate-200 dark:bg-slate-700"></div>
-                    <span class="font-bold text-slate-800 dark:text-slate-300">MIT</span>
-                </div>
-                <div class="flex items-center gap-2 group cursor-default">
-                    <div class="size-8 rounded-full bg-slate-200 dark:bg-slate-700"></div>
-                    <span class="font-bold text-slate-800 dark:text-slate-300">Stanford</span>
-                </div>
-                <div class="flex items-center gap-2 group cursor-default">
-                    <div class="size-8 rounded-full bg-slate-200 dark:bg-slate-700"></div>
-                    <span class="font-bold text-slate-800 dark:text-slate-300">OpenAI</span>
-                </div>
+                
+                <input 
+                    type="url" 
+                    required
+                    placeholder="Paste article URL here..." 
+                    class="w-full bg-transparent border-none outline-none text-white placeholder-slate-500 text-lg font-light py-3"
+                />
+                
+                <button type="submit" class="ml-2 btn-gradient text-white px-6 py-3 rounded-xl font-medium flex items-center gap-2 shadow-lg shadow-blue-900/20">
+                    <span>Summarize</span>
+                    <i class="ph-bold ph-sparkle"></i>
+                </button>
+            </form>
+        </div>
+
+        <div class="mt-16 flex items-center justify-center gap-8 text-sm text-slate-500 font-medium">
+            <div class="flex items-center gap-2">
+                <i class="ph-fill ph-shield-check text-emerald-500 text-lg"></i>
+                <span>Private & Secure</span>
+            </div>
+            <div class="w-1 h-1 bg-slate-700 rounded-full"></div>
+            <div class="flex items-center gap-2">
+                <i class="ph-fill ph-lightning text-amber-500 text-lg"></i>
+                <span>Instant Analysis</span>
+            </div>
+            <div class="w-1 h-1 bg-slate-700 rounded-full"></div>
+            <div class="flex items-center gap-2">
+                <i class="ph-fill ph-robot text-purple-500 text-lg"></i>
+                <span>AI Powered</span>
             </div>
         </div>
+
     </main>
 
-    <!-- Footer -->
-    <footer
-        class="w-full border-t border-slate-200 dark:border-white/5 bg-background-light dark:bg-background-dark py-8">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p class="text-slate-500 dark:text-slate-500 text-sm">© 2023 Summarize.ai</p>
-            <div class="flex items-center gap-6">
-                <a class="text-slate-500 dark:text-slate-500 hover:text-primary text-sm transition-colors"
-                    href="#">Privacy</a>
-                <a class="text-slate-500 dark:text-slate-500 hover:text-primary text-sm transition-colors"
-                    href="#">Terms</a>
+    <footer class="w-full border-t border-white/5 py-8 mt-auto z-10 bg-background/50 backdrop-blur-lg">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center text-xs text-slate-600">
+            <p>© 2024 LinkWise AI.</p>
+            <div class="flex gap-6">
+                <a href="#" class="hover:text-slate-400 transition-colors">Privacy</a>
+                <a href="#" class="hover:text-slate-400 transition-colors">Terms</a>
             </div>
         </div>
     </footer>
-</body>
 
+</body>
 </html>
