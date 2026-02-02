@@ -4,61 +4,11 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Linkwise - AI Research Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-
-    <script>
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-                    },
-                    colors: {
-                        background: "#030712", // Very dark navy/black
-                        surface: "#111827",
-                        primary: "#3b82f6",
-                        accent: "#6366f1", // Indigo
-                    },
-                    backgroundImage: {
-                        'premium-gradient': 'radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.15) 0%, rgba(3, 7, 18, 0) 50%)',
-                    }
-                },
-            },
-        }
-    </script>
-    <style>
-        /* Premium Blur & Glass Effects */
-        .glass-input {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        /* Subtle Grid Background */
-        .bg-grid {
-            background-size: 40px 40px;
-            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                              linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-        }
-
-        /* Animated Button Gradient */
-        .btn-gradient {
-            background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
-            transition: all 0.3s ease;
-        }
-        .btn-gradient:hover {
-            box-shadow: 0 0 25px rgba(99, 102, 241, 0.4);
-            transform: translateY(-1px);
-        }
-    </style>
 </head>
-
-<body class="bg-background text-white font-sans min-h-screen flex flex-col overflow-x-hidden selection:bg-primary/30">
+<body class="bg-background text-white font-sans min-h-screen flex flex-col overflow-x-hidden">
     
     <div class="fixed inset-0 bg-premium-gradient pointer-events-none"></div>
     <div class="fixed inset-0 bg-grid pointer-events-none z-0"></div>
@@ -69,92 +19,45 @@
                 <div class="bg-gradient-to-br from-blue-500 to-indigo-500 rounded-lg p-1.5 shadow-lg shadow-blue-500/20">
                     <i class="ph-bold ph-read-cv-logo text-white text-xl"></i>
                 </div>
-                <span class="text-xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
-                    LinkWise
-                </span>
-            </div>
-            
-            <div class="hidden md:flex items-center gap-8">
-                <a href="#" class="text-sm font-medium text-slate-400 hover:text-white transition-colors">Pricing</a>
-                <a href="#" class="text-sm font-medium text-slate-400 hover:text-white transition-colors">Login</a>
-                <button class="bg-white/5 hover:bg-white/10 border border-white/10 text-white px-5 py-2 rounded-full text-sm font-semibold transition-all">
-                    Get Started
-                </button>
+                <span class="logo-text">LinkWise</span>
             </div>
         </div>
     </nav>
 
     <main class="relative z-10 flex-grow flex flex-col items-center justify-center px-4 pt-32 pb-20">
-        
-        <div class="text-center max-w-3xl mx-auto mb-16 space-y-6">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-4">
-                <span class="relative flex h-2 w-2">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
-                </span>
-                Powered by Ollama LLM
-            </div>
-            
-            <h1 class="text-5xl md:text-7xl font-bold tracking-tight text-white leading-[1.1]">
-                Turn noise into <br />
-                <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400">clarity.</span>
+        <div class="text-center max-w-3xl mx-auto mb-12">
+            <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-6">
+                Turn noise into <span class="gradient-text">clarity.</span>
             </h1>
-            
-            <p class="text-lg text-slate-400 font-light max-w-xl mx-auto leading-relaxed">
-                The research assistant that reads for you. Extract precision insights from any URL in seconds, not hours.
+            <p class="text-lg text-slate-400 font-light max-w-xl mx-auto">
+                The research assistant that reads for you. Extract precision insights from any URL in seconds.
             </p>
         </div>
 
-        <div class="w-full max-w-2xl mx-auto relative group">
-            <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
-            
-            <form class="relative flex items-center p-2 rounded-2xl glass-input transition-all duration-300 focus-within:ring-1 focus-within:ring-blue-500/50">
-                <div class="pl-4 pr-3 text-slate-500">
-                    <i class="ph ph-link text-xl"></i>
-                </div>
-                
-                <input 
-                    type="url" 
-                    required
-                    placeholder="Paste article URL here..." 
-                    class="w-full bg-transparent border-none outline-none text-white placeholder-slate-500 text-lg font-light py-3"
-                />
-                
-                <button type="submit" class="ml-2 btn-gradient text-white px-6 py-3 rounded-xl font-medium flex items-center gap-2 shadow-lg shadow-blue-900/20">
+        <div class="w-full max-w-2xl mx-auto relative group mb-12">
+            <div class="glow-effect"></div>
+            <form id="summarizeForm" class="relative flex items-center p-2 rounded-2xl glass-input">
+                <div class="pl-4 pr-3 text-slate-500"><i class="ph ph-link text-xl"></i></div>
+                <input type="url" id="urlInput" required placeholder="Paste article URL here..." 
+                       class="w-full bg-transparent border-none outline-none text-white placeholder-slate-500 text-lg py-3">
+                <button type="submit" id="submitBtn" class="btn-gradient px-6 py-3 rounded-xl font-medium flex items-center gap-2">
                     <span>Summarize</span>
                     <i class="ph-bold ph-sparkle"></i>
                 </button>
             </form>
         </div>
 
-        <div class="mt-16 flex items-center justify-center gap-8 text-sm text-slate-500 font-medium">
-            <div class="flex items-center gap-2">
-                <i class="ph-fill ph-shield-check text-emerald-500 text-lg"></i>
-                <span>Private & Secure</span>
-            </div>
-            <div class="w-1 h-1 bg-slate-700 rounded-full"></div>
-            <div class="flex items-center gap-2">
-                <i class="ph-fill ph-lightning text-amber-500 text-lg"></i>
-                <span>Instant Analysis</span>
-            </div>
-            <div class="w-1 h-1 bg-slate-700 rounded-full"></div>
-            <div class="flex items-center gap-2">
-                <i class="ph-fill ph-robot text-purple-500 text-lg"></i>
-                <span>AI Powered</span>
+        <div id="resultsSection" class="w-full max-w-2xl mx-auto hidden">
+            <div class="glass-input rounded-2xl p-6 border-blue-500/20">
+                <div class="flex items-center gap-2 mb-4 text-blue-400 text-sm font-bold uppercase tracking-widest">
+                    <i class="ph-bold ph-magic-wand"></i> AI Summary
+                </div>
+                <div id="summaryOutput" class="text-slate-300 leading-relaxed space-y-4">
+                    </div>
             </div>
         </div>
-
     </main>
 
-    <footer class="w-full border-t border-white/5 py-8 mt-auto z-10 bg-background/50 backdrop-blur-lg">
-        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center text-xs text-slate-600">
-            <p>© 2024 LinkWise AI.</p>
-            <div class="flex gap-6">
-                <a href="#" class="hover:text-slate-400 transition-colors">Privacy</a>
-                <a href="#" class="hover:text-slate-400 transition-colors">Terms</a>
-            </div>
-        </div>
-    </footer>
-
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
